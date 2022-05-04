@@ -19,11 +19,12 @@ export const PersonSwitch = ({
   };
 
   return (
-    <div>
+    <div style={{padding: "0px 10px"}}>
       <Switch
         value={peoplePresent[person]}
         label={person}
         onChange={() => togglePerson(person)}
+        width="120px"
       />
     </div>
   );
