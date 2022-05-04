@@ -1,4 +1,4 @@
-import { Button, initializeBlock } from "@airtable/blocks/ui";
+import { Button, initializeBlock, useGlobalConfig } from "@airtable/blocks/ui";
 import React, { useEffect, useState } from "react";
 import { Box } from "@airtable/blocks/ui";
 import { PersonSwitch } from "./components/PersonSwitch.component";
@@ -14,10 +14,17 @@ function CheckInChecker() {
     "Rowan",
     "Cheslyn",
   ];
-  const peopleInit = {};
-  people.forEach((person) => {
-    peopleInit[person] = true;
-  });
+  const globalConfig = useGlobalConfig();
+  const storedPeople: {} = globalConfig.get("peoplePresent");
+  let peopleInit: {} = {};
+  if (!storedPeople) {
+    people.forEach((person) => {
+      peopleInit[person] = true;
+    });
+  } else {
+    peopleInit = storedPeople;
+  }
+  //   const peopleInit = {};
 
   const [peoplePresent, setPeoplePresent] = useState(peopleInit);
   const [sacrifice, setSacrifice] = useState<String>("");
@@ -34,6 +41,7 @@ function CheckInChecker() {
 
   useEffect(() => {
     setSacrifice("");
+    globalConfig.setAsync("peoplePresent", peoplePresent);
   }, [peoplePresent]);
 
   return (
