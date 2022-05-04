@@ -42,7 +42,7 @@ function CheckInChecker() {
   useEffect(() => {
     setSacrifice("");
     globalConfig.setAsync("peoplePresent", peoplePresent);
-  }, [peoplePresent]);
+  }, [peoplePresent, globalConfig]);
 
   return (
     <Box
