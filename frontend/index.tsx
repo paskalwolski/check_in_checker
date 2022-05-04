@@ -1,4 +1,4 @@
-import { Button, initializeBlock, Label } from "@airtable/blocks/ui";
+import { Button, initializeBlock } from "@airtable/blocks/ui";
 import React, { useEffect, useState } from "react";
 import { Box } from "@airtable/blocks/ui";
 import { PersonSwitch } from "./components/PersonSwitch.component";
@@ -21,7 +21,6 @@ function CheckInChecker() {
 
   const [peoplePresent, setPeoplePresent] = useState(peopleInit);
   const [sacrifice, setSacrifice] = useState<String>("");
-  const [heading, setHeading] = useState<String>("Who is Here?");
 
   const getSacrifice = () => {
     const sacrificeArr = [];
@@ -33,9 +32,9 @@ function CheckInChecker() {
     setSacrifice(sacrificeArr[Math.floor(Math.random() * sacrificeArr.length)]);
   };
 
-  useEffect(()=> {
-    setSacrifice("")
-  }, [peoplePresent])
+  useEffect(() => {
+    setSacrifice("");
+  }, [peoplePresent]);
 
   return (
     <Box
@@ -48,7 +47,7 @@ function CheckInChecker() {
       }}
     >
       <div>
-        <h1>{heading}</h1>
+        <h1>Who is Here?</h1>
       </div>
       <Box
         style={{
@@ -71,15 +70,21 @@ function CheckInChecker() {
           );
         })}
       </Box>
-      {!sacrifice && <Button
-        onClick={() => getSacrifice()}
-        style={{ margin: "10px" }}
-        icon="personal"
-      >
-        Select a Sacrifice
-      </Button>}
-      {sacrifice && <div><h2>{sacrifice} has been selected!</h2><h6>This decision is final</h6></div>}
-
+      {!sacrifice && (
+        <Button
+          onClick={() => getSacrifice()}
+          style={{ margin: "10px" }}
+          icon="personal"
+        >
+          Select a Sacrifice
+        </Button>
+      )}
+      {sacrifice && (
+        <div>
+          <h2>{sacrifice} has been selected!</h2>
+          <h6>This decision is final</h6>
+        </div>
+      )}
     </Box>
   );
 }
