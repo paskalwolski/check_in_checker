@@ -12,7 +12,6 @@ function CheckInChecker() {
     "Hendrik",
     "Kathy",
     "Rowan",
-    "Cheslyn",
   ];
   const globalConfig = useGlobalConfig();
   const storedPeople: {} = globalConfig.get("peoplePresent");
